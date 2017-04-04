@@ -1,0 +1,1 @@
+这个项目是 zx-python-webapp 的flask重构版。前者只使用了一个底层的web框架`aoihttp`，这个则完全依赖于flask及其拓展，后期拟加入在线聊天功能。
