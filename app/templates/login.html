@@ -1,0 +1,37 @@
+{% extends '__base__.html' %}
+{% block title %}登录{% endblock %}
+{% block content %}
+<form method="POST" class="uk-form uk-form-stacked">
+<fieldset>
+{{ form.hidden_tag() }}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <div class="uk-alert uk-alert-danger" data-uk-alert>
+    	<a href="" class="uk-alert-close uk-close"></a>
+    	<p>{{ message }}</p>
+	  </div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div class="uk-form-row">
+{{ form.email.label(class="uk-form-label") }} {{ form.email(id='email', class="uk-form-width-large") }} <br>
+</div>
+<div class="uk-form-row">
+{{ form.passwd.label(class="uk-form-label") }} {{ form.passwd(id='passwd', class="uk-form-width-large") }}<br>
+</div>
+<div class="uk-form-row">
+{{ form.remember_me.label}} {{ form.remember_me }}<br>
+</div>
+<div class="uk-form-row">
+{{ form.submit(class="uk-button") }}
+</div>
+</fieldset>
+</form>
+
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+<html>
+<head>
+  {% block meta %}<!-- block meta  -->{% endblock %}
+	<title>{% block title %} {% endblock %}</title>
+	<link rel="stylesheet" href="/static/css/uikit.gradient.css">
+  {% block beforehead %}<!--beforehead-->{% endblock %}
+</head>
+<body>
+	<nav class="uk-navbar uk-navbar-attached" style="margin-bottom: 20px">
+    <div class="uk-container uk-container-center ">
+  		<ul class="uk-navbar-nav">
+        <a href="/" class="uk-navbar-brand uk-visible-large">zx'Home</a>
+        <li class="uk-active"><a href="/blogs/all"><i class="uk-icon-book"></i> 博客</a></li>
+        <li><a href=""><i class="uk-icon-cogs"></i> 管理</a></li>
+        <li class="uk-parent"><a href=""><i class="uk-icon-info"></i> 关于</a></li>
+      </ul>
+      <div class="uk-navbar-flip">
+        <ul class="uk-navbar-nav">
+          {% if current_user.is_authenticated %}
+          <li class="uk-parent" data-uk-dropdown>
+               <a href="#0"><i class="uk-icon-user"></i>{{current_user.name}}</a>
+              <div class="uk-dropdown uk-dropdown-navbar">
+                <ul class="uk-nav uk-nav-navbar">
+                   <li><a href="/logout"><i class="uk-icon-sign-out"></i>登出</a></li>
+                </ul>
+              </div>
+          </li>
+          {% else %}
+          <li><a href="/login"><i class="uk-icon-sign-in"></i>登陆</a></li>
+          <li><a href="/register"><i class="uk-icon-edit"></i>注册</a></li>
+          {% endif %}
+        </ul>
+      </div> 
+    </div>
+	</nav>
+    <div class="uk-container uk-container-center uk-grid">
+		{% block content %}
+    {% endblock %}
+    </div>
+    <script src="/static/js/jquery-3.1.1.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/sha1.min.js"></script>
+</body>
+</html>

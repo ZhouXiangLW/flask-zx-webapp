@@ -1,0 +1,37 @@
+{% extends '__base__.html' %}
+{% block title %}博客{% endblock %}
+{% block beforehead %}
+{% endblock %}
+{% block content %}
+
+<div class="uk-width-3-4">
+	{% for blog in blogs %}
+	<div class="uk-panel">
+		<div class="uk-panel-title"><a href="/blog/{{blog.id}}">{{ blog.title }}</a></div>
+		<div>发表于{{ blog.created_at|datetime }}</div>
+		<p>{{ blog.summary }}</p>
+	</div>
+	<hr class="uk-article-divider">
+	{% endfor %}
+</div>
+<div class="uk-width-1-4">
+	<div class="uk-panel">
+	    <div class="uk-panel-badge uk-badge">hot</div>
+	    <h3 class="uk-panel-title">文章分类</h3>
+	    <ul class="uk-nav uk-nav-side">
+	    	{% if caregory == 'all' %}
+	    	<li class="uk-active"><a href="/blogs/all">全部</a></li>
+	    	{% else %}
+	    	<li><a href="/blogs/all">全部</a></li>
+	    	{% endif %}
+	    	{% for tag in tags %}
+	    	{% if caregory == tag.en_name %}
+			<li class="uk-active"><a href="/blogs/{{tag.en_name}}">{{ tag.name }}</a></li>
+			{% else %}
+	    	<li><a href="/blogs/{{tag.en_name}}">{{ tag.name }}</a></li>
+	    	{% endif %}
+			{% endfor %}
+	    </ul>
+	</div>
+</div>
+{% endblock %}

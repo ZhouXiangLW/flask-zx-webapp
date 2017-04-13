@@ -1,1 +1,3 @@
-/flaskenv
+flaskenv
+/__pycache__
+.idea
