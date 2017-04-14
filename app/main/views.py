@@ -13,15 +13,16 @@ from app import db, User, Blog, Comment, Tag, TagBlog
 def index():
     return render_template('index.html')
 
-@main.route('/blogs/<tag>')
-def blogs(tag):
+@main.route('/blogs/<tag>/<page>')
+def blogs(tag,page):
     tags = Tag.query.all()
     if tag == 'all':
-        blogs = Blog.query.all()
+        blogs = Blog.query.paginate(int(page),5,False)
     else:
         blogs = db.session.query(Blog).join(TagBlog).join(Tag). \
-                                filter(Tag.name.like(tag)).all()
-    for blog in blogs:
+                                filter(Tag.name.like(tag)). \
+                                paginate(int(page), 5, False)
+    for blog in blogs.items:
         blog.summary = blog.content[:100]
     return render_template('blogs.html', blogs=blogs, tags=tags, caregory=tag)
 

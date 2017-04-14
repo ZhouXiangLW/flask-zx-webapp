@@ -4,34 +4,61 @@
 {% endblock %}
 {% block content %}
 
-<div class="uk-width-3-4">
-	{% for blog in blogs %}
-	<div class="uk-panel">
-		<div class="uk-panel-title"><a href="/blog/{{blog.id}}">{{ blog.title }}</a></div>
-		<div>发表于{{ blog.created_at|datetime }}</div>
-		<p>{{ blog.summary }}</p>
+<div class="col-md-8">
+	{% for blog in blogs.items %}
+	<div class="panel panel-default">
+		<div class="panel-heading">
+    		<a href={{ url_for('main.get_blog',id=blog.id) }}><h3 class="panel-title">{{ blog.title }}</h3></a>
+  		</div>
+  		<div class="panel-body">
+			<div>发表于{{ blog.created_at|datetime }}</div>
+			<p>{{ blog.summary }}</p>
+		</div>
 	</div>
-	<hr class="uk-article-divider">
 	{% endfor %}
-</div>
-<div class="uk-width-1-4">
-	<div class="uk-panel">
-	    <div class="uk-panel-badge uk-badge">hot</div>
-	    <h3 class="uk-panel-title">文章分类</h3>
-	    <ul class="uk-nav uk-nav-side">
-	    	{% if caregory == 'all' %}
-	    	<li class="uk-active"><a href="/blogs/all">全部</a></li>
-	    	{% else %}
-	    	<li><a href="/blogs/all">全部</a></li>
-	    	{% endif %}
-	    	{% for tag in tags %}
-	    	{% if caregory == tag.en_name %}
-			<li class="uk-active"><a href="/blogs/{{tag.en_name}}">{{ tag.name }}</a></li>
+	<nav style="text-align: center">
+		<ul class="pagination">
+			{% for p in blogs.iter_pages() %}
+			{% if blogs.has_prev %}
+			<li><a href="#"><span>&laquo;</span></a></li>
 			{% else %}
-	    	<li><a href="/blogs/{{tag.en_name}}">{{ tag.name }}</a></li>
-	    	{% endif %}
+			<li class="disabled"><a href="#"><span>&laquo;</span></a></li>
+			{% endif %}
+			{% if p == blogs.page %}
+			<li class="active"><a href="">{{p}}</a></li>
+			{% else %}
+			<li><a href="">{{p}}</a></li>
+			{% endif %}
+			{% if blogs.has_next %}
+			<li><a href="#"><span>&raquo;</span></a></li>
+			{% else %}
+			<li class="disabled"><a href="#"><span>&raquo;</span></a></li>
+			{% endif %}
 			{% endfor %}
-	    </ul>
+		</ul>
+	</nav>
+</div>
+<div class="col-md-4">
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+    		<h3 class="panel-title">文章分类</h3>
+  		</div>
+  		<div class="panel-body">
+		    <ul class="nav nav-stacked nav-pills">
+		    	{% if caregory == 'all' %}
+		    	<li class="active"><a href={{ url_for('main.blogs', tag='all',page=1) }}>全部</a></li>
+		    	{% else %}
+		    	<li><a href={{ url_for('main.blogs', tag='all',page=1) }}>全部</a></li>
+		    	{% endif %}
+		    	{% for t in tags %}
+		    	{% if caregory == t.en_name %}
+				<li class="active"><a href={{ url_for('main.blogs', tag=t.en_name,page=1) }}>{{ t.name }}</a></li>
+				{% else %}
+		    	<li><a href={{ url_for('main.blogs', tag=t.en_name,page=1) }}>{{ t.name }}</a></li>
+		    	{% endif %}
+				{% endfor %}
+		    </ul>
+		</div>
 	</div>
 </div>
 {% endblock %}

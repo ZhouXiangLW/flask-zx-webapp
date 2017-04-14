@@ -1,7 +1,8 @@
 {% extends '__base__.html' %}
 {% block title %}注册{% endblock %}
 {% block content %}
-<form method="POST" class="uk-form uk-form-stacked">
+<div class="col-md-8">
+<form method="POST">
 <fieldset>
 {{ form.hidden_tag() }}
 {% with messages = get_flashed_messages() %}
@@ -16,28 +17,28 @@
     </ul>
   {% endif %}
 {% endwith %}
-<div class="uk-form-row">
-{{ form.name.label(class="uk-form-label") }} {{ form.name(id='name', class="uk-form-width-large") }} <br>
+<div class="form-group">
+{{ form.name.label(class="uk-form-label") }} {{ form.name(id='name', class="form-control") }} 
 </div>
-<div class="uk-form-row">
-{{ form.email.label(class="uk-form-label") }} {{ form.email(id='email', class="uk-form-width-large") }} <br>
+<div class="form-group">
+{{ form.email.label(class="uk-form-label") }} {{ form.email(id='email', class="form-control") }} 
 </div>
-<div class="uk-form-row">
+<div class="form-group">
  <label class="uk-form-label">重复密码</label>
-<input type="password" id="passwd2" class="uk-form-width-large">
-<br>
+<input type="password" id="passwd2" class="form-control">
 </div>
-<div class="uk-form-row">
-{{ form.passwd.label(class="uk-form-label") }} {{ form.passwd(id='passwd', class="uk-form-width-large") }}<br>
+<div class="form-group">
+{{ form.passwd.label(class="uk-form-label") }} {{ form.passwd(id='passwd', class="form-control") }}
 </div>
-<div class="uk-form-row">
+<div class="form-group">
 {{ form.remember_me.label}} {{ form.remember_me }}<br>
 </div>
-<div class="uk-form-row">
-{{ form.submit(class="uk-button") }}
+<div class="form-group">
+{{ form.submit(class="btn btn-default") }}
 </div>
 </fieldset>
 </form>
+</div>
 
 <script>
 
